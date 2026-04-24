@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H3AD-X — Threat Intelligence // H3AD-SEC</title>
+  <meta name="description" content="H3AD-X by H3AD-SEC — Threat intelligence platform. IOC enrichment, indicator correlation, threat feeds, and attribution analysis.">
+  <link rel="icon" href="https://h3ad-sec.github.io/fevicon.png?v=2026" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #06080e;
+      --panel: #0b1018;
+      --panel-alt: #101824;
+      --surface: #18253a;
+      --text: #e2eeff;
+      --text-dim: #96b0cc;
+      --muted: #62809c;
+      --muted-dim: #3a5470;
+      --accent: #00ff9f;
+      --accent2: #4d94ff;
+      --border: #1e3050;
+      --border-dim: #121e30;
+      --nav-h: 48px;
+    }
+    body.light {
+      --bg: #eef2f8; --panel: #ffffff; --panel-alt: #e4ecf6;
+      --surface: #ccd8ec; --text: #060e1c; --text-dim: #142540;
+      --muted: #2c4a6a; --muted-dim: #5c7a9a;
+      --accent: #004db8; --accent2: #007a55;
+      --border: #a0b8d4; --border-dim: #c8d8ec;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Share Tech Mono', monospace; font-size: 14px; line-height: 1.6; min-height: 100vh; overflow-x: hidden; transition: background 0.3s, color 0.3s; }
+    a { color: inherit; text-decoration: none; }
+
+    #matrix-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.18; }
+    body.light #matrix-canvas { opacity: 0.10; }
+
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(8,12,18,0.9); border-bottom: 1px solid var(--border); height: var(--nav-h); display: flex; align-items: center; padding: 0 1.25rem; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+    body.light .nav { background: rgba(242,245,250,0.9); }
+    .nav-brand { flex-shrink: 0; margin-right: 1rem; }
+    .nav-brand img { height: 22px; display: block; }
+    .nav-links { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 2px; overflow: visible; }
+    .nav-links a { font-size: 0.68rem; color: var(--muted); padding: 5px 9px; border-radius: 4px; border: 1px solid transparent; white-space: nowrap; transition: color 0.15s, border-color 0.15s, background 0.15s; flex-shrink: 0; }
+    .nav-links a:hover { color: var(--accent); border-color: var(--border); background: rgba(0,255,159,0.05); }
+    body.light .nav-links a:hover { background: rgba(0,77,184,0.07); }
+    .nav-links a.nav-current { color: var(--accent); border-color: var(--accent); background: rgba(0,255,159,0.06); }
+    body.light .nav-links a.nav-current { background: rgba(0,77,184,0.07); }
+    .nav-divider { width: 1px; height: 16px; background: var(--border); margin: 0 6px; flex-shrink: 0; opacity: 0.6; }
+
+    .nav-item { position: relative; display: flex; align-items: center; }
+    .nav-dropdown { display: none; position: absolute; top: 100%; left: 0; min-width: 130px; padding-top: 6px; z-index: 100; }
+    .nav-dropdown-inner { background: var(--panel); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+    .nav-item:hover .nav-dropdown { display: block; }
+    .nav-links .nav-dropdown a { display: block; padding: 7px 12px; font-size: 0.65rem; color: var(--muted); border: none; border-left: 2px solid transparent; border-radius: 0; transition: 0.15s; }
+    .nav-links .nav-dropdown a:hover, .nav-links .nav-dropdown a.nav-current { color: var(--accent); border-left-color: var(--accent); background: rgba(0,255,159,0.04); }
+
+    .theme-toggle { margin-left: auto; flex-shrink: 0; cursor: pointer; padding-left: 1rem; }
+    .toggle-track { width: 42px; height: 22px; background: var(--border); border-radius: 50px; position: relative; transition: background 0.3s; }
+    .toggle-thumb { width: 14px; height: 14px; background: var(--accent); border-radius: 50%; position: absolute; top: 4px; left: 4px; transition: transform 0.3s; box-shadow: 0 0 8px var(--accent); }
+    body.light .toggle-thumb { transform: translateX(20px); }
+
+    .hamburger { display: none; flex-direction: column; justify-content: center; gap: 4px; cursor: pointer; padding: 6px; margin-right: 8px; flex-shrink: 0; }
+    .hamburger span { display: block; width: 18px; height: 2px; background: var(--muted); border-radius: 2px; transition: 0.2s; }
+
+    .nav-drawer { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; background: var(--panel); border-bottom: 1px solid var(--border); z-index: 49; padding: 0.75rem 1.25rem 1rem; flex-direction: column; gap: 2px; }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a { font-size: 0.75rem; color: var(--text-dim); padding: 8px 10px; border-radius: 4px; border-left: 2px solid transparent; transition: 0.15s; }
+    .nav-drawer a:hover { color: var(--accent); border-left-color: var(--accent); background: rgba(0,255,159,0.04); }
+    .nav-drawer a.nav-current { color: var(--accent); border-left-color: var(--accent); }
+    .drawer-sub { padding-left: 1.8rem !important; font-size: 0.7rem !important; opacity: 0.8; }
+
+    .page { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: calc(var(--nav-h) + 3rem) 2rem 7rem; }
+
+    .hero { padding: 3rem 0 2rem; }
+    .hero-tag { font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent); opacity: 0.75; display: block; margin-bottom: 1rem; }
+    .hero-title { font-size: clamp(1.4rem, 4vw, 2.6rem); color: var(--text); letter-spacing: 0.04em; line-height: 1.3; margin-bottom: 1rem; }
+    .hero-title span { color: var(--accent); }
+    .hero-sub { font-size: 0.8rem; color: var(--text-dim); max-width: 560px; line-height: 1.8; margin-bottom: 2rem; }
+
+    .status-block { display: flex; align-items: center; gap: 10px; padding: 10px 16px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; margin-bottom: 2.5rem; }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 6px var(--accent); flex-shrink: 0; animation: pulse 2.5s ease-in-out infinite; }
+    .status-dot.partial { background: #ffd60a; box-shadow: 0 0 6px #ffd60a; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+    .status-text { font-size: 0.65rem; letter-spacing: 0.14em; color: var(--accent); }
+    .status-text.partial { color: #ffd60a; }
+    .status-sep { color: var(--border); margin: 0 4px; }
+    .status-meta { font-size: 0.63rem; color: var(--muted); }
+
+    .section-label { font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 8px; }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-bottom: 3rem; }
+
+    .tool-card { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; padding: 20px; display: flex; flex-direction: column; gap: 12px; transition: border-color 0.2s, background 0.2s; position: relative; overflow: hidden; }
+    .tool-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; transition: opacity 0.2s; }
+    .tool-card:hover { border-color: rgba(0,255,159,0.35); background: rgba(0,255,159,0.02); }
+    .tool-card:hover::before { opacity: 1; }
+    .tool-card.live { border-color: rgba(0,255,159,0.3); }
+    .tool-card.live::before { opacity: 0.6; }
+    .tool-card.coming-soon { opacity: 0.72; }
+
+    .card-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .card-icon { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 16px; background: var(--surface); flex-shrink: 0; }
+    .card-badge { font-size: 0.55rem; letter-spacing: 0.18em; padding: 3px 8px; border-radius: 2px; font-weight: 600; text-transform: uppercase; white-space: nowrap; }
+    .badge-live { background: rgba(0,255,159,0.12); color: var(--accent); border: 1px solid rgba(0,255,159,0.3); }
+    .badge-soon { background: rgba(98,128,156,0.12); color: var(--muted); border: 1px solid var(--border); }
+
+    .card-name { font-size: 0.8rem; letter-spacing: 0.1em; color: var(--text); }
+    .card-desc { font-size: 0.68rem; color: var(--text-dim); line-height: 1.6; flex: 1; }
+    .card-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.62rem; letter-spacing: 0.12em; color: var(--accent); padding: 6px 12px; border: 1px solid rgba(0,255,159,0.3); border-radius: 3px; transition: 0.15s; align-self: flex-start; }
+    .card-link:hover { background: rgba(0,255,159,0.08); }
+    .card-link-soon { display: inline-flex; align-items: center; gap: 6px; font-size: 0.62rem; letter-spacing: 0.12em; color: var(--muted); padding: 6px 12px; border: 1px solid var(--border); border-radius: 3px; cursor: default; align-self: flex-start; }
+
+    .features-section { margin-bottom: 3rem; }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .feat-card { background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+    .feat-icon { font-size: 18px; }
+    .feat-name { font-size: 0.72rem; letter-spacing: 0.08em; color: var(--text); }
+    .feat-desc { font-size: 0.63rem; color: var(--muted); line-height: 1.5; }
+
+    .terminal-block { background: var(--panel); border: 1px solid var(--border); border-radius: 4px; padding: 1.2rem 1.4rem; margin-bottom: 2.5rem; }
+    .term-line { font-size: 0.68rem; color: var(--muted); line-height: 2; display: flex; align-items: baseline; gap: 8px; }
+    .term-prompt { color: var(--accent); flex-shrink: 0; }
+    .term-cmd { color: var(--text-dim); }
+    .term-comment { color: var(--muted-dim); }
+    .term-out { color: var(--text); }
+    .term-accent { color: var(--accent); }
+    .term-warn { color: #ffd60a; }
+
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--muted); padding: 8px 14px; border: 1px solid var(--border); border-radius: 4px; transition: 0.15s; margin-bottom: 3rem; }
+    .back-link:hover { color: var(--accent); border-color: rgba(0,255,159,0.4); }
+
+    footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 1.2rem 2rem; max-width: 860px; margin: 0 auto; display: flex; align-items: center; gap: 10px; font-size: 0.6rem; color: var(--muted); flex-wrap: wrap; }
+    footer a { color: var(--accent); }
+    footer .sep { color: var(--border); }
+
+    @media(max-width:900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .page { padding-left: 1.2rem; padding-right: 1.2rem; }
+    }
+    @media(max-width:600px) {
+      .tools-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media(max-width:400px) {
+      .features-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="dark">
+  <canvas id="matrix-canvas"></canvas>
+
+  <nav class="nav">
+    <div class="hamburger" id="hamburger" onclick="toggleDrawer()">
+      <span></span><span></span><span></span>
+    </div>
+    <a class="nav-brand" href="https://h3ad-sec.github.io" target="_blank" rel="noopener">
+      <img id="navLogo" src="https://raw.githubusercontent.com/h3ad-sec/h3ad-sec.github.io/main/logo-dark.png" alt="H3AD-SEC">
+    </a>
+    <div class="nav-links">
+      <div class="nav-divider"></div>
+      <a href="https://h3ad-sec.github.io" target="_blank" rel="noopener">HOME</a>
+      <div class="nav-divider"></div>
+      <div class="nav-item">
+        <a href="https://h3ad-sec.github.io/H3AD-X/" class="nav-current">H3AD-X</a>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown-inner">
+            <a href="https://h3ad-sec.github.io/VERDIKT/" target="_blank" rel="noopener">VERDIKT</a>
+          </div>
+        </div>
+      </div>
+      <a href="https://h3ad-sec.github.io/H3AD-AI/" target="_blank" rel="noopener">H3AD-AI</a>
+      <a href="https://h3ad-sec.github.io/H3AD-DETECT/" target="_blank" rel="noopener">H3AD-DETECT</a>
+      <a href="https://h3ad-sec.github.io/H3AD-HUNT/" target="_blank" rel="noopener">H3AD-HUNT</a>
+      <a href="https://h3ad-sec.github.io/H3AD-OPS/" target="_blank" rel="noopener">H3AD-OPS</a>
+      <a href="https://h3ad-sec.github.io/H3AD-DF/" target="_blank" rel="noopener">H3AD-DF</a>
+      <a href="https://h3ad-sec.github.io/H3AD-IR/" target="_blank" rel="noopener">H3AD-IR</a>
+      <div class="nav-divider"></div>
+      <a href="mailto:h3adsec@gmail.com">CONTACT</a>
+    </div>
+    <div class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+      <div class="toggle-track"><div class="toggle-thumb"></div></div>
+    </div>
+  </nav>
+
+  <div class="nav-drawer" id="navDrawer">
+    <a href="https://h3ad-sec.github.io" target="_blank" rel="noopener" onclick="closeDrawer()">HOME ↗</a>
+    <a href="https://h3ad-sec.github.io/H3AD-X/" class="nav-current" onclick="closeDrawer()">H3AD-X</a>
+    <a href="https://h3ad-sec.github.io/VERDIKT/" target="_blank" rel="noopener" onclick="closeDrawer()" class="drawer-sub">↳ VERDIKT ↗</a>
+    <a href="https://h3ad-sec.github.io/H3AD-AI/" target="_blank" rel="noopener" onclick="closeDrawer()">H3AD-AI ↗</a>
+    <a href="https://h3ad-sec.github.io/H3AD-DETECT/" target="_blank" rel="noopener" onclick="closeDrawer()">H3AD-DETECT ↗</a>
+    <a href="https://h3ad-sec.github.io/H3AD-HUNT/" target="_blank" rel="noopener" onclick="closeDrawer()">H3AD-HUNT ↗</a>
+    <a href="https://h3ad-sec.github.io/H3AD-OPS/" target="_blank" rel="noopener" onclick="closeDrawer()">H3AD-OPS ↗</a>
+    <a href="https://h3ad-sec.github.io/H3AD-DF/" target="_blank" rel="noopener" onclick="closeDrawer()">H3AD-DF ↗</a>
+    <a href="https://h3ad-sec.github.io/H3AD-IR/" target="_blank" rel="noopener" onclick="closeDrawer()">H3AD-IR ↗</a>
+    <a href="mailto:h3adsec@gmail.com" onclick="closeDrawer()">CONTACT</a>
+  </div>
+
+  <div class="page">
+    <div class="hero">
+      <span class="hero-tag">H3AD-SEC / THREAT INTELLIGENCE</span>
+      <h1 class="hero-title">H3AD-<span>X</span></h1>
+      <p class="hero-sub">Threat intelligence platform for indicator enrichment, correlation, and attribution. Providing SOC analysts with the context needed to triage faster and hunt deeper.</p>
+    </div>
+
+    <div class="status-block">
+      <div class="status-dot"></div>
+      <span class="status-text">LIVE</span>
+      <span class="status-sep">//</span>
+      <span class="status-meta">VERDIKT — BULK IOC ENRICHMENT</span>
+    </div>
+
+    <div class="terminal-block">
+      <div class="term-line"><span class="term-prompt">$</span><span class="term-cmd">h3adx --status</span></div>
+      <div class="term-line"><span class="term-prompt">&gt;</span><span class="term-out">Module: <span class="term-accent">H3AD-X</span> — Threat Intelligence</span></div>
+      <div class="term-line"><span class="term-prompt">&gt;</span><span class="term-out">VERDIKT: <span class="term-accent">LIVE</span> — bulk IOC enrichment across VT · AbuseIPDB · OTX · MB · Shodan · URLhaus</span></div>
+      <div class="term-line"><span class="term-prompt">&gt;</span><span class="term-comment"># Every IOC. One verdict.</span></div>
+    </div>
+
+    <div class="section-label">TOOLS</div>
+
+    <div class="tools-grid">
+      <div class="tool-card live">
+        <div class="card-header">
+          <div class="card-icon">⚡</div>
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
+        <div class="card-name">VERDIKT</div>
+        <div class="card-desc">Bulk IOC checker with parallel engine. Enriches IPs, domains, URLs, hashes, and emails against six intelligence sources. Every IOC. One verdict.</div>
+        <a class="card-link" href="https://h3ad-sec.github.io/VERDIKT/" target="_blank" rel="noopener">
+          OPEN VERDIKT ↗
+        </a>
+      </div>
+    </div>
+
+    <a class="back-link" href="https://h3ad-sec.github.io">← BACK TO H3AD-SEC PLATFORM</a>
+  </div>
+
+  <footer>
+    <a href="https://h3ad-sec.github.io">H3AD-SEC</a>
+    <span class="sep">/</span>
+    <span>H3AD-X</span>
+    <span class="sep">//</span>
+    <span>Threat Intelligence Platform</span>
+    <span class="sep">//</span>
+    <span>Intelligence. Detection. Response.</span>
+  </footer>
+
+  <script>
+    /* ── DRAWER ─────────────────────────────────────────────────────────────── */
+    function toggleDrawer() { document.getElementById('navDrawer').classList.toggle('open'); }
+    function closeDrawer() { document.getElementById('navDrawer').classList.remove('open'); }
+    document.addEventListener('click', e => {
+      const d = document.getElementById('navDrawer'), h = document.getElementById('hamburger');
+      if (d.classList.contains('open') && !d.contains(e.target) && !h.contains(e.target)) closeDrawer();
+    });
+
+    /* ── THEME ──────────────────────────────────────────────────────────────── */
+    function updateLogo(t) {
+      const el = document.getElementById('navLogo');
+      if (el) el.src = t === 'light'
+        ? 'https://raw.githubusercontent.com/h3ad-sec/h3ad-sec.github.io/main/logo-light.png'
+        : 'https://raw.githubusercontent.com/h3ad-sec/h3ad-sec.github.io/main/logo-dark.png';
+    }
+    function toggleTheme() {
+      const l = document.body.classList.toggle('light');
+      document.body.classList.toggle('dark', !l);
+      const t = l ? 'light' : 'dark';
+      localStorage.setItem('theme', t);
+      updateLogo(t);
+    }
+    const _t = localStorage.getItem('theme');
+    if (_t === 'light') { document.body.classList.add('light'); document.body.classList.remove('dark'); updateLogo('light'); }
+    else { document.body.classList.add('dark'); document.body.classList.remove('light'); updateLogo('dark'); }
+
+    /* ── MATRIX ─────────────────────────────────────────────────────────────── */
+    const canvas = document.getElementById('matrix-canvas');
+    const ctx = canvas.getContext('2d');
+    const chars = ['IOC','TTP','APT','C2','IOA','STIX2','TAXII','YARA','SIGMA','OTX','VT','MISP',
+      'Pivot','Enrichment','Attribution','Campaign','Indicator','Reputation','Threat','Pulse',
+      'SHA256','MD5','IPv4','Domain','URL','Email','Blocklist','Allowlist','Feed',
+      'T1566','T1071','T1059','T1003','T1190','T1486','T1055','T1105',
+      'MALICIOUS','SUSPICIOUS','BENIGN','VERDIKT','H3AD-X','H3AD-SEC',
+      'Actor','Cluster','Infrastructure','Lateral','Exfil','Recon','Persist'];
+    let drops = [];
+    function initMatrix() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      drops = Array(Math.floor(window.innerWidth / 18)).fill(1);
+    }
+    function drawMatrix() {
+      const l = document.body.classList.contains('light');
+      ctx.fillStyle = l ? 'rgba(238,242,248,0.08)' : 'rgba(0,0,0,0.12)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = l ? '#004db8' : '#00ff9f';
+      ctx.font = '12px monospace';
+      for (let i = 0; i < drops.length; i++) {
+        ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * 18, drops[i] * 18);
+        if (drops[i] * 18 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    window.addEventListener('resize', initMatrix);
+    initMatrix();
+    setInterval(drawMatrix, 45);
+  </script>
+</body>
+</html>
