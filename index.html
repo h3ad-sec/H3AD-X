@@ -728,6 +728,40 @@
       body.hero-hidden .page{padding-top:calc(var(--nav-h)+20px);}
       .xv-nav-pill{opacity:1;transform:none;pointer-events:auto;transition:none;}
     }
+
+    /* hero stats */
+    .hero-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:1.75rem;}
+    .stat-chip{display:flex;flex-direction:column;padding:10px 16px;background:var(--panel);border:1px solid var(--border);border-radius:4px;min-width:88px;}
+    .stat-val{font-size:1.05rem;color:var(--accent);letter-spacing:0.04em;line-height:1.2;}
+    .stat-label{font-size:0.53rem;letter-spacing:0.18em;color:var(--muted);margin-top:4px;}
+
+    /* manifesto */
+    .manifesto-strip{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2rem 0;margin:2.5rem 0 3rem;}
+    .manifesto-text{font-size:clamp(0.82rem,2vw,1.05rem);color:var(--text);line-height:1.9;letter-spacing:0.02em;}
+
+    /* tool feature rows */
+    .tool-feature{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:28px 28px 22px;margin-bottom:14px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden;transition:border-color 0.2s,background 0.2s;}
+    .tool-feature::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0.55;}
+    .tool-feature:hover{border-color:rgba(0,255,159,0.35);background:rgba(0,255,159,0.02);}
+    .tf-header{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+    .tf-name{font-size:1rem;letter-spacing:0.14em;color:var(--text);}
+    .tf-tagline{font-size:0.8rem;color:var(--accent);letter-spacing:0.03em;}
+    .tf-body{font-size:0.71rem;color:var(--text-dim);line-height:1.8;max-width:600px;}
+    .tf-meta{font-size:0.57rem;letter-spacing:0.2em;color:var(--muted);border-top:1px solid var(--border-dim);padding-top:10px;margin-top:2px;}
+    .tf-link{display:inline-flex;align-items:center;gap:6px;font-size:0.63rem;letter-spacing:0.14em;color:var(--accent);padding:7px 14px;border:1px solid rgba(0,255,159,0.3);border-radius:3px;transition:0.15s;align-self:flex-start;margin-top:2px;}
+    .tf-link:hover{background:rgba(0,255,159,0.08);}
+
+    /* approach section */
+    .approach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:3rem;}
+    .approach-card{background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:20px;display:flex;flex-direction:column;gap:8px;}
+    .ap-num{font-size:0.53rem;letter-spacing:0.25em;color:var(--accent);opacity:0.6;}
+    .ap-title{font-size:0.72rem;letter-spacing:0.1em;color:var(--text);}
+    .ap-desc{font-size:0.64rem;color:var(--muted);line-height:1.65;}
+
+    @media(max-width:600px){
+      .approach-grid{grid-template-columns:1fr;}
+      .stat-chip{min-width:72px;}
+    }
   </style>
 </head>
 
@@ -823,71 +857,75 @@
 
   <div class="page">
     <div class="hero">
-      <span class="hero-tag">H3AD-SEC / THREAT INTELLIGENCE</span>
-      <h1 class="hero-title">H3AD-<span>X</span></h1>
-      <p class="hero-sub">Threat intelligence platform for indicator enrichment, correlation, and attribution. Providing
-        SOC analysts with the context needed to triage faster and hunt deeper.</p>
+      <span class="hero-tag">H3AD-SEC / THREAT INTELLIGENCE SUITE</span>
+      <h1 class="hero-title">You're not paid<br>to <span>guess.</span></h1>
+      <p class="hero-sub">Three tools. One pipeline. From raw artifact to full attribution — without switching tabs, chasing down lookups, or waiting on a queue.</p>
+      <div class="hero-stats">
+        <div class="stat-chip"><span class="stat-val">3</span><span class="stat-label">TOOLS LIVE</span></div>
+        <div class="stat-chip"><span class="stat-val">18</span><span class="stat-label">IOC TYPES</span></div>
+        <div class="stat-chip"><span class="stat-val">8</span><span class="stat-label">INFRA LAYERS</span></div>
+        <div class="stat-chip"><span class="stat-val">10+</span><span class="stat-label">INTEL SOURCES</span></div>
+      </div>
     </div>
 
-    <div class="status-block">
-      <div class="status-dot"></div>
-      <span class="status-text">LIVE</span>
-      <span class="status-sep">//</span>
-      <span class="status-meta">X-VERDIKT — DEEP IP INTELLIGENCE</span>
-    </div>
-
-    <div class="terminal-block">
-      <div class="term-line"><span class="term-prompt">$</span><span class="term-cmd">h3adx --status</span></div>
-      <div class="term-line"><span class="term-prompt">&gt;</span><span class="term-out">Module: <span
-            class="term-accent">H3AD-X</span> — Threat Intelligence</span></div>
-      <div class="term-line"><span class="term-prompt">&gt;</span><span class="term-out">X-VERDIKT: <span
-            class="term-accent">LIVE</span> — deep IP intelligence across 10 sources · VT · AbuseIPDB · OTX · URLScan · TF · UH · MB · HA · Shodan</span></div>
-      <div class="term-line"><span class="term-prompt">&gt;</span><span class="term-out">PARSE-X: <span
-            class="term-accent">LIVE</span> — artifact extractor · IP · Domain · URL · Hash · Registry · Process · DLL · CVE · ATT&amp;CK · MAC · Port</span></div>
-      <div class="term-line"><span class="term-prompt">&gt;</span><span class="term-out">DNSCOPE: <span
-            class="term-accent">LIVE</span> — infra mapper · ASN · Passive DNS · Certs · Subdomains · Co-hosted · Cloud · CDN/WAF</span></div>
-      <div class="term-line"><span class="term-prompt">&gt;</span><span class="term-comment"># Map the Infrastructure.</span></div>
+    <div class="manifesto-strip">
+      <p class="manifesto-text">Threat intel isn't about collecting indicators.<br>It's about making decisions before your attacker does.</p>
     </div>
 
     <div class="section-label">TOOLS</div>
 
-    <div class="tools-grid">
-      <div class="tool-card live">
-        <div class="card-header">
-          <div class="card-icon">🔍</div>
-          <span class="card-badge badge-live">LIVE</span>
-        </div>
-        <div class="card-name">X-VERDIKT</div>
-        <div class="card-desc">Deep IP enrichment with 10 parallel sources. VT · AbuseIPDB · OTX · URLScan · ThreatFox · URLhaus · MalwareBazaar · HybridAnalysis · Shodan. Deep IP Intelligence. Zero Ambiguity.</div>
-        <a class="card-link" href="https://h3ad-sec.github.io/X-VERDIKT/" target="_blank" rel="noopener">
-          OPEN X-VERDIKT ↗
-        </a>
+    <div class="tool-feature">
+      <div class="tf-header">
+        <div class="tf-name">X-VERDIKT</div>
+        <span class="card-badge badge-live">LIVE</span>
       </div>
-      <div class="tool-card live">
-        <div class="card-header">
-          <div class="card-icon">🧩</div>
-          <span class="card-badge badge-live">LIVE</span>
-        </div>
-        <div class="card-name">PARSE-X</div>
-        <div class="card-desc">Artifact extractor from raw text. Paste any report, log, or email — extracts IPs, domains, URLs, hashes, registry keys, processes, DLLs, CVEs, ATT&amp;CK techniques, MACs, and ports. Raw Text. Clean Artifacts.</div>
-        <a class="card-link" href="https://h3ad-sec.github.io/PARSE-X/" target="_blank" rel="noopener">
-          OPEN PARSE-X ↗
-        </a>
-      </div>
-      <div class="tool-card live">
-        <div class="card-header">
-          <div class="card-icon">🌐</div>
-          <span class="card-badge badge-live">LIVE</span>
-        </div>
-        <div class="card-name">DNSCOPE</div>
-        <div class="card-desc">Domain/IP infrastructure mapper. ASN · Passive DNS · Certificate transparency · Subdomains · Co-hosted domains · Cloud/CDN/WAF detection. Map the Infrastructure.</div>
-        <a class="card-link" href="https://h3ad-sec.github.io/DNSCOPE/" target="_blank" rel="noopener">
-          OPEN DNSCOPE ↗
-        </a>
-      </div>
+      <div class="tf-tagline">"One IP. Ten Sources. Zero Ambiguity."</div>
+      <div class="tf-body">A single lookup that runs ten intelligence sources in parallel — not sequentially, simultaneously. You get one verdict, a confidence score, and the raw signal behind it. Because "check VT" is not enough.</div>
+      <div class="tf-meta">10 SOURCES · PARALLEL QUERIES · FULL VERDICT</div>
+      <a class="tf-link" href="https://h3ad-sec.github.io/X-VERDIKT/" target="_blank" rel="noopener">LAUNCH X-VERDIKT →</a>
     </div>
 
-    <a class="back-link" href="https://h3ad-sec.github.io">← BACK TO H3AD-SEC PLATFORM</a>
+    <div class="tool-feature">
+      <div class="tf-header">
+        <div class="tf-name">PARSE-X</div>
+        <span class="card-badge badge-live">LIVE</span>
+      </div>
+      <div class="tf-tagline">"Paste Anything. Extract Everything."</div>
+      <div class="tf-body">Drop a threat report, email, or raw log. Get 18 artifact types back — IPs, hashes, CVEs, ATT&amp;CK techniques, registry keys — clean and structured. No regex. No copy-paste hunting. Nothing to install.</div>
+      <div class="tf-meta">18 TYPES · CLIENT-SIDE · ZERO DATA SENT</div>
+      <a class="tf-link" href="https://h3ad-sec.github.io/PARSE-X/" target="_blank" rel="noopener">LAUNCH PARSE-X →</a>
+    </div>
+
+    <div class="tool-feature">
+      <div class="tf-header">
+        <div class="tf-name">DNSCOPE</div>
+        <span class="card-badge badge-live">LIVE</span>
+      </div>
+      <div class="tf-tagline">"Don't just flag the IP. Own the infrastructure."</div>
+      <div class="tf-body">ASN, passive DNS, certificate transparency, subdomains, co-hosted domains, CDN and WAF detection — eight layers, one query. When an IP shows up in your alerts, you want to know who owns it, what else lives on it, and where it's been.</div>
+      <div class="tf-meta">8 INFRA LAYERS · PIVOT-READY · FULL MAP</div>
+      <a class="tf-link" href="https://h3ad-sec.github.io/DNSCOPE/" target="_blank" rel="noopener">LAUNCH DNSCOPE →</a>
+    </div>
+
+    <div class="section-label" style="margin-top:3rem;">THE APPROACH</div>
+
+    <div class="approach-grid">
+      <div class="approach-card">
+        <div class="ap-num">01</div>
+        <div class="ap-title">PARALLEL BY DEFAULT</div>
+        <div class="ap-desc">Every enrichment runs its sources at the same time. You wait seconds, not minutes.</div>
+      </div>
+      <div class="approach-card">
+        <div class="ap-num">02</div>
+        <div class="ap-title">YOUR DATA STAYS YOURS</div>
+        <div class="ap-desc">PARSE-X runs entirely in your browser. Nothing leaves your machine. No logs, no server, no upload.</div>
+      </div>
+      <div class="approach-card">
+        <div class="ap-num">03</div>
+        <div class="ap-title">VERDICT, NOT NOISE</div>
+        <div class="ap-desc">You don't get raw API output. You get a scored, structured decision — with the evidence that backs it.</div>
+      </div>
+    </div>
   </div>
 
   <footer>
