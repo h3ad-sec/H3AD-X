@@ -431,6 +431,7 @@
     }
 
     .section-label {
+      font-family: 'Share Tech Mono', monospace;
       font-size: 0.6rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
@@ -935,18 +936,18 @@
     <div class="hero">
       <span class="hero-tag">THREAT INTELLIGENCE MODULE</span>
       <h1 class="hero-title">Turn Raw Artifacts Into<br><span>Full Attribution.</span></h1>
-      <p class="hero-sub">Enrich IOCs across 11 threat intelligence sources. Extract 18 artifact types from raw text. Map domain infrastructure to ASN, certificate chains, and co-hosted assets — all without data leaving your browser.</p>
+      <p class="hero-sub">Enrich IOCs across 11 threat intelligence sources. Extract 18 artifact types from raw text. Map domain infrastructure to ASN, certificate chains, and co-hosted assets, all without data leaving your browser.</p>
       <div class="hero-chips">
         <span class="hero-chip">PARALLEL ENRICHMENT</span>
-        <span class="hero-chip">10+ INTEL SOURCES</span>
+        <span class="hero-chip">11 INTEL SOURCES</span>
         <span class="hero-chip">CLIENT-SIDE PARSING</span>
         <span class="hero-chip">INFRA ATTRIBUTION</span>
         <span class="hero-chip">MANAGED API ACCESS</span>
       </div>
       <div class="hero-stats">
         <div class="stat-chip"><span class="stat-val">3</span><span class="stat-label">TOOLS LIVE</span></div>
-        <div class="stat-chip"><span class="stat-val">18</span><span class="stat-label">IOC TYPES</span></div>
-        <div class="stat-chip"><span class="stat-val">8</span><span class="stat-label">INFRA LAYERS</span></div>
+        <div class="stat-chip"><span class="stat-val">18</span><span class="stat-label">ARTIFACT TYPES</span></div>
+        <div class="stat-chip"><span class="stat-val">8</span><span class="stat-label">DNS DATASETS</span></div>
         <div class="stat-chip"><span class="stat-val">10+</span><span class="stat-label">INTEL SOURCES</span></div>
       </div>
     </div>
@@ -981,14 +982,8 @@
         <div class="tf-name">X-VERDIKT</div>
         <span class="card-badge badge-live">LIVE</span>
       </div>
-      <div class="tf-tagline">"One IP. Ten Sources. Zero Ambiguity."</div>
-      <div class="tf-body">Deep enrichment for individual IP addresses across 11 intelligence sources — VirusTotal, AbuseIPDB, OTX, Shodan, Greynoise, and more. Composite risk scoring with supplementary context flags. Analyst-ready output, no API key setup required.</div>
-      <div class="cap-list">
-        <div class="cap-item"><span class="cap-dot">◆</span><span>10 sources queried in parallel — not sequentially; results collapse into a single scored verdict as each source responds</span></div>
-        <div class="cap-item"><span class="cap-dot">◆</span><span>Composite confidence score: VirusTotal (40pt) + AbuseIPDB (40pt) + OTX (20pt) with supplementary flags from remaining sources</span></div>
-        <div class="cap-item"><span class="cap-dot">◆</span><span>Managed-key backend — no user API keys required; X-VERDIKT runs on H3AD-SEC managed infrastructure</span></div>
-        <div class="cap-item"><span class="cap-dot">◆</span><span>Verdict rendered as MALICIOUS / SUSPICIOUS / BENIGN with full per-source breakdown and raw signal</span></div>
-      </div>
+      <div class="tf-tagline">Deep IP Enrichment · 11 Sources</div>
+      <div class="tf-body">Deep IP enrichment across 11 threat intelligence sources, scored, flagged, and analyst-ready.</div>
       <div class="tf-meta" style="margin-top:1rem;">10 SOURCES · PARALLEL QUERIES · MANAGED KEYS · COMPOSITE SCORING</div>
       <a class="tf-link" href="https://h3ad-sec.github.io/X-VERDIKT/" target="_blank" rel="noopener">LAUNCH X-VERDIKT →</a>
     </div>
@@ -998,13 +993,8 @@
         <div class="tf-name">PARSE-X</div>
         <span class="card-badge badge-live">LIVE</span>
       </div>
-      <div class="tf-tagline">"Paste Anything. Extract Everything."</div>
-      <div class="tf-body">Extract 18 artifact types from any raw text block — IPs, domains, URLs, file hashes, CVEs, email addresses, MITRE techniques, registry keys, and more. Fully client-side, no data leaves the browser. Flat table with group filters, CSV/JSON/Markdown export.</div>
-      <div class="cap-list">
-        <div class="cap-item"><span class="cap-dot">◆</span><span>18 artifact types: IPs, domains, URLs, hashes, emails, CVEs, MITRE technique IDs, registry keys, file paths, usernames, hostnames, processes, services, ports, ASNs, MAC addresses, DLLs, rule names</span></div>
-        <div class="cap-item"><span class="cap-dot">◆</span><span>Fully client-side — runs entirely in your browser; nothing leaves your machine, no server, no upload, safe for sensitive threat reports and raw log data</span></div>
-        <div class="cap-item"><span class="cap-dot">◆</span><span>Group filters, per-type counts, copy per type, export to CSV / JSON / Markdown</span></div>
-      </div>
+      <div class="tf-tagline">Artifact Extractor · 18 Types, Client-Side</div>
+      <div class="tf-body">Extract 18 artifact types from any raw text block. Fully client-side, no data leaves the browser.</div>
       <div class="tf-meta" style="margin-top:1rem;">18 TYPES · CLIENT-SIDE · ZERO DATA SENT · CSV / JSON / MD EXPORT</div>
       <a class="tf-link" href="https://h3ad-sec.github.io/PARSE-X/" target="_blank" rel="noopener">LAUNCH PARSE-X →</a>
     </div>
@@ -1014,13 +1004,8 @@
         <div class="tf-name">DNSCOPE</div>
         <span class="card-badge badge-live">LIVE</span>
       </div>
-      <div class="tf-tagline">"Don't just flag the IP. Own the infrastructure."</div>
-      <div class="tf-body">Map domain and IP infrastructure across 8 data sources — ASN, passive DNS, certificate chains, subdomain enumeration, co-hosted assets, cloud provider detection, CDN, and WAF identification. Managed backend on Vercel for API orchestration.</div>
-      <div class="cap-list">
-        <div class="cap-item"><span class="cap-dot">◆</span><span>8 layers: ASN / BGP routing, passive DNS history, certificate transparency logs, subdomain enumeration, co-hosted domain discovery, CDN provider identification, WAF fingerprinting, cloud infrastructure attribution</span></div>
-        <div class="cap-item"><span class="cap-dot">◆</span><span>Managed backend — no API keys required from the analyst; DNSCOPE handles all source access through H3AD-SEC managed infrastructure</span></div>
-        <div class="cap-item"><span class="cap-dot">◆</span><span>Pivot-ready output: every resolved hostname, certificate, or co-hosted domain is a launchpad for the next lookup</span></div>
-      </div>
+      <div class="tf-tagline">Infrastructure Mapper · 8 DNS Sources</div>
+      <div class="tf-body">Map domain and IP infrastructure across ASN, passive DNS, certificates, subdomains, and co-hosted assets.</div>
       <div class="tf-meta" style="margin-top:1rem;">8 INFRA LAYERS · MANAGED BACKEND · PIVOT-READY · FULL INFRA MAP</div>
       <a class="tf-link" href="https://h3ad-sec.github.io/DNSCOPE/" target="_blank" rel="noopener">LAUNCH DNSCOPE →</a>
     </div>
@@ -1031,17 +1016,17 @@
       <div class="pillar">
         <div class="pillar-num">01</div>
         <div class="pillar-title">PARALLEL BY DEFAULT</div>
-        <div class="pillar-desc">Every enrichment in H3AD-X queries its sources simultaneously — not one after another. X-VERDIKT returns a verdict in seconds because all ten sources fire at once. You don't wait for the slowest source.</div>
+        <div class="pillar-desc">Every enrichment in H3AD-X queries its sources simultaneously, not one after another. X-VERDIKT returns a verdict in seconds because all ten sources fire at once. You don't wait for the slowest source.</div>
       </div>
       <div class="pillar">
         <div class="pillar-num">02</div>
         <div class="pillar-title">CLIENT-SIDE WHERE IT COUNTS</div>
-        <div class="pillar-desc">PARSE-X runs entirely in your browser. Nothing leaves your machine — no upload, no server, no log. Safe for sensitive threat reports, raw log data, and any content you can't risk transmitting to a third-party backend.</div>
+        <div class="pillar-desc">PARSE-X runs entirely in your browser. Nothing leaves your machine: no upload, no server, no log. Safe for sensitive threat reports, raw log data, and any content you can't risk transmitting to a third-party backend.</div>
       </div>
       <div class="pillar">
         <div class="pillar-num">03</div>
         <div class="pillar-title">VERDICT, NOT NOISE</div>
-        <div class="pillar-desc">You don't get raw API output. You get composite confidence scores, structured verdicts, and per-source signal — so you can explain your call to a team lead or escalation path in one sentence.</div>
+        <div class="pillar-desc">You don't get raw API output. You get composite confidence scores, structured verdicts, and per-source signal, so you can explain your call to a team lead or escalation path in one sentence.</div>
       </div>
     </div>
 
@@ -1070,7 +1055,7 @@
       </div>
     </div>
 
-    <a class="back-link" href="https://h3ad-sec.github.io/">← BACK TO H3AD-SEC</a>
+    <a class="back-link" href="https://h3ad-sec.github.io/">← BACK TO H3AD-SEC PLATFORM</a>
   </div>
 
   <footer>
