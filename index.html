@@ -783,9 +783,28 @@
     .ap-title{font-size:0.72rem;letter-spacing:0.1em;color:var(--text);}
     .ap-desc{font-size:0.64rem;color:var(--muted);line-height:1.65;}
 
+    @media(max-width:640px){
+      .page {
+        padding: calc(var(--nav-h) + 1rem) 1rem 4rem;
+      }
+      footer {
+        padding: 1.2rem 1rem;
+      }
+    }
+
     @media(max-width:600px){
       .approach-grid{grid-template-columns:1fr;}
       .stat-chip{min-width:72px;}
+    }
+
+    @media(max-width:480px){
+      .tf-meta { word-break: break-word; white-space: normal; }
+      .tool-feature { padding: 18px 16px 14px; }
+      .hero-chips { gap: 4px; }
+      .hero-chip { font-size: 0.48rem; }
+      .cap-strip { grid-template-columns: repeat(2, 1fr); }
+      .compliance-row { flex-direction: column; }
+      .pillars { grid-template-columns: 1fr; }
     }
 
     /* ── Enterprise additions ───────────────────────────────────────── */
