@@ -713,15 +713,8 @@
       color: var(--border);
     }
 
-    @media(max-width:900px) {
-      .nav-links {
-        display: none;
-      }
-
-      .hamburger {
-        display: flex;
-      }
-    }
+    body.nav-compact .nav-links { display: none; }
+    body.nav-compact .hamburger { display: flex; }
 
     @media(max-width:600px) {
       .tools-grid {
@@ -784,6 +777,8 @@
     }
 
     @media(max-width:640px){
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
       .page {
         padding: calc(var(--nav-h) + 1rem) 1.1rem 4rem;
       }
@@ -1116,6 +1111,7 @@
 
     /* ── HERO SCROLL HIDE ── */
     (function(){var s=document.getElementById('scroll-sentinel');if(!s)return;new IntersectionObserver(function(e){document.body.classList.toggle('hero-hidden',!e[0].isIntersecting);},{threshold:0}).observe(s);})();
+    (function(){var pill=document.getElementById('xv-nav-pill'),links=document.querySelector('.nav-links'),toggle=document.querySelector('.theme-toggle'),G=20;function check(){if(!links)return;document.body.classList.remove('nav-compact');links.style.visibility='hidden';var lr=links.getBoundingClientRect(),pr=pill?pill.getBoundingClientRect().right:60,tl=toggle?toggle.getBoundingClientRect().left:window.innerWidth-60;links.style.visibility='';document.body.classList.toggle('nav-compact',(pr+G>lr.left)||(lr.right+G>tl));}check();window.addEventListener('resize',check);})();
   </script>
 </body>
 
