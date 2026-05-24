@@ -445,6 +445,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      background: var(--panel); border: 1px solid var(--border); padding: 2px 10px; border-radius: 4px;
     }
 
     .section-label::after {
@@ -452,6 +453,14 @@
       flex: 1;
       height: 1px;
       background: var(--border);
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    [tabindex]:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+      border-radius: 3px;
     }
 
     .tools-grid {
@@ -759,7 +768,7 @@
     .tf-name{font-family:'Exo 2',sans-serif;font-weight:700;font-size:1rem;letter-spacing:0.14em;color:var(--text);}
     .tf-tagline{font-family:'Exo 2',sans-serif;font-weight:300;font-size:0.8rem;color:var(--accent);letter-spacing:0.03em;}
     .tf-body{font-family:'Exo 2',sans-serif;font-weight:400;font-size:0.71rem;color:var(--text-dim);line-height:1.8;max-width:600px;}
-    .tf-meta{font-family:'Share Tech Mono',monospace;font-size:0.57rem;letter-spacing:0.2em;color:var(--muted);border-top:1px solid var(--border-dim);padding-top:10px;margin-top:2px;}
+    .tf-meta{font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;color:var(--muted);border-top:1px solid var(--border-dim);padding-top:10px;margin-top:2px;}
     .tf-link{font-family:'Exo 2',sans-serif;font-weight:600;display:inline-flex;align-items:center;gap:6px;font-size:0.63rem;letter-spacing:0.14em;color:var(--accent);padding:7px 14px;border:1px solid rgba(0,255,159,0.3);border-radius:3px;transition:0.15s;align-self:flex-start;margin-top:2px;}
     .tf-link:hover{background:rgba(0,255,159,0.08);}
 
