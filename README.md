@@ -22,6 +22,9 @@ Artifact extractor from raw text. Paste any incident report, threat intel write-
 ### [DNSCOPE](https://h3ad-sec.github.io/DNSCOPE/)
 Domain and IP infrastructure mapper across 8 sources. Surfaces ASN, passive DNS history, TLS certificates, subdomains, co-hosted domains, cloud provider, CDN, and WAF context. Proxied through serverless functions — no API keys required.
 
+### [MAILSCOPE](https://h3ad-sec.github.io/MAILSCOPE/)
+Email header analyzer. Paste raw email headers to check SPF, DKIM, and DMARC alignment, map the full hop chain, detect spoofing indicators, and surface authentication failures. Fully client-side — no data leaves the browser.
+
 ---
 
 ## Part of H3AD-SEC
@@ -34,10 +37,11 @@ Other modules: H3AD-DETECT · H3AD-HUNT · H3AD-OPS · H3AD-DF · H3AD-IR
 
 | Module | Tools |
 |--------|-------|
-| [H3AD-X](https://h3ad-sec.github.io/H3AD-X/) | X-VERDIKT, PARSE-X, DNSCOPE |
-| [H3AD-AI](https://h3ad-sec.github.io/H3AD-AI/) | INSIGHT-AI, QUERYCRAFT-AI, FPLENS-AI, ATTMAP-AI, CHRONO-AI, MALBRIEF-AI |
+| [H3AD-X](https://h3ad-sec.github.io/H3AD-X/) | X-VERDIKT, PARSE-X, DNSCOPE, MAILSCOPE |
+| [H3AD-AI](https://h3ad-sec.github.io/H3AD-AI/) | INSIGHT-AI, QUERYCRAFT-AI, FPLENS-AI, ATTMAP-AI, CHRONO-AI, MALBRIEF-AI, PROMPTVAULT |
 | [H3AD-DETECT](https://h3ad-sec.github.io/H3AD-DETECT/) | TRACERULES |
 | [H3AD-HUNT](https://h3ad-sec.github.io/H3AD-HUNT/) | HYPOS, PIVEX, TRACEPULSE |
 | [H3AD-OPS](https://h3ad-sec.github.io/H3AD-OPS/) | QUICKTRACE, SHIFTLOG, PHISHOPS |
-| [H3AD-DF](https://h3ad-sec.github.io/H3AD-DF/) | REGSCOPE |
-| [H3AD-IR](https://h3ad-sec.github.io/H3AD-IR/) | — |
+| [H3AD-DF](https://h3ad-sec.github.io/H3AD-DF/) | REGSCOPE, MALBRIEF-AI |
+| [H3AD-IR](https://h3ad-sec.github.io/H3AD-IR/) | PHISHBOOK |
+| [H3AD-LEARN](https://h3ad-sec.github.io/H3AD-LEARN/) | Threat Hunting (9 ch), LOLBAS (8 ch) |
