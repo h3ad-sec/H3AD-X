@@ -46,7 +46,7 @@
     :root {
       --bg:#080c14; --panel:#0d1117; --panel-alt:#111827; --panel2:#111827;
       --text:#e6edf3; --muted:#8b949e;
-      --accent:#00d4ff; --accent2:#58a6ff;
+      --accent:#00d4ff; --accent2:#3b82f6;
       --primary:#00d4ff; --primary-dim:rgba(0,212,255,0.08); --primary-glow:rgba(0,212,255,0.18);
       --border:#1c2333; --nav-h:48px;
       --status-live:#00d4ff; --status-partial:#f59e0b; --status-soon:#2d3748;
@@ -56,22 +56,29 @@
     }
 
     body.light {
-      --bg: #f8fafc;
-      --panel: #ffffff;
-      --panel-alt: #f1f5f9;
-      --panel2: #f1f5f9;
-      --text: #0d1117;
-      --muted: #5c6b8a;
-      --accent: #0284c7;
-      --accent2: #2563eb;
-      --border: #e2e8f0;
-      --primary: #0284c7;
-      --primary-dim: rgba(2, 132, 199, 0.07);
-      --primary-glow: rgba(2, 132, 199, 0.14);
-      --status-live: #0284c7;
-      --status-partial: #d97706;
-      --status-soon: #cbd5e1;
+      /* softened, low-glare light theme, panels dropped off pure white for long work sessions */
+      --bg: #D3D7DC;
+      --panel: #DADDE1;
+      --panel-alt: #C9CDD2;
+      --panel2: #C9CDD2;
+      --text: #000000;
+      --muted: #2E343B;
+      --accent: #0A6EA8;
+      --accent2: #C2540E;
+      --border: #BBC0C6;
+      --primary: #0A6EA8;
+      --primary-dim: rgba(10, 110, 168, 0.07);
+      --primary-glow: rgba(10, 110, 168, 0.14);
+      --status-live: #0A6EA8;
+      --status-partial: #B45309;
+      --status-soon: #AEB4BB;
       --red:#DC2626; --yellow:#B45309; --green:#059669;
+      font-weight: 500;
+    }
+    body.light .hero-sub,
+    body.light .tf-body,
+    body.light .arch-desc {
+      font-weight: 400;
     }
 
     *,
@@ -149,6 +156,12 @@
     .nav-brand img {
       height: 22px;
       display: block;
+    }
+
+    @media (max-width: 480px) {
+      .nav-brand { margin-right: 0.6rem; }
+      .xv-pill-tagline { display: none; }
+      .xv-nav-pill { margin-left: 6px; padding-left: 6px; }
     }
 
     .nav-links {
@@ -358,53 +371,42 @@
     .page {
       position: relative;
       z-index: 1;
-      max-width: 860px;
+      max-width: 1120px;
       margin: 0 auto;
-      padding: calc(var(--nav-h) + 3rem) 2rem 7rem;
+      padding: calc(var(--nav-h) + 1.5rem) 2rem 7rem;
     }
 
     .hero {
-      padding: 3rem 0 2rem;
-    }
-
-    .hero-tag {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--accent);
-      opacity: 0.75;
-      display: block;
-      margin-bottom: 1rem;
+      padding: 0.5rem 0 2rem;
     }
 
     .hero-title {
       font-family: var(--sans);
       font-weight: 700;
-      font-size: clamp(1.4rem, 4vw, 2.6rem);
+      font-size: clamp(22px, 4vw, 34px);
       color: var(--text);
-      letter-spacing: 0.04em;
-      line-height: 1.3;
-      margin-bottom: 1rem;
+      line-height: 1.25;
+      margin-bottom: 10px;
     }
 
     .hero-title span {
       color: var(--accent);
-      text-shadow: 0 0 32px rgba(0, 212, 255, 0.4);
-    }
-
-    body.light .hero-title span {
-      text-shadow: 0 0 24px rgba(2, 132, 199, 0.35);
     }
 
     .hero-sub {
       font-family: var(--ui);
-      font-weight: 300;
-      font-size: var(--fs-xs);
+      font-size: var(--fs-sm);
       color: var(--muted);
-      max-width: 620px;
-      line-height: 1.9;
+      max-width: 640px;
+      line-height: 1.6;
+      margin-bottom: 18px;
     }
+
+    .hero-banner{display:flex;justify-content:center;align-items:baseline;gap:2px;font-family:var(--sans);font-weight:700;font-size:clamp(26px,5vw,42px);letter-spacing:4px;}
+    .hero-banner-tagline{text-align:center;font-family:var(--sans);font-size:var(--fs-xs);color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:-6px;}
+    .hero-banner-by{text-align:center;font-family:var(--ui);font-weight:600;font-size:var(--fs-sm);color:var(--accent);letter-spacing:1px;margin-bottom:18px;}
+    .hero-intro{display:flex;flex-direction:column;align-items:center;text-align:center;max-width:700px;margin:0 auto;}
+    .hero-intro .hero-title,.hero-intro .hero-sub{margin-left:auto;margin-right:auto;}
 
     .section-label {
       font-family: var(--ui);
@@ -560,38 +562,37 @@
 
     /* hero stats */
     @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
-    .hero-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:1.75rem;}
-    .stat-chip{display:flex;flex-direction:column;padding:10px 16px;background:var(--panel);border:1px solid var(--border);border-radius:4px;min-width:88px;}
-    .stat-val{font-family:var(--sans);font-weight:700;font-size:var(--fs-md);color:var(--accent);letter-spacing:0.04em;line-height:1.2;}
-    .stat-label{font-family:var(--mono);font-size:0.53rem;letter-spacing:0.18em;color:var(--muted);margin-top:4px;}
-
-    /* manifesto */
-    .manifesto-strip{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2rem 0;margin:2.5rem 0 3rem;}
-    .manifesto-text{font-family:var(--ui);font-size:clamp(0.82rem,2vw,1.05rem);color:var(--text);line-height:1.9;letter-spacing:0.02em;}
+    .hero-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--border);border:1px solid var(--border);margin:0 auto 18px;max-width:640px;border-radius:6px;overflow:hidden;}
+    .hero-stat{background:var(--panel);padding:12px 16px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;min-width:0;transition:background .2s;}
+    .hero-stat:hover{background:var(--panel-alt);}
+    .hero-stat-num{font-family:var(--sans);font-weight:700;font-size:20px;color:var(--accent);}
+    .hero-stat-label{font-family:var(--ui);font-size:10px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;}
 
     /* tool feature rows */
-    .tool-features{display:block;}
-    .tool-feature{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:28px 28px 22px;margin-bottom:14px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden;transition:border-color 0.2s,background 0.2s;animation:fadeIn .3s ease backwards;}
-    .tool-feature::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0.55;}
-    .tool-feature:hover{border-color:var(--accent);background:rgba(0,212,255,0.02);}
+    .tool-features{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+    .tool-feature{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:24px 24px 20px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden;transition:border-color 0.2s,background 0.2s;animation:fadeIn .3s ease backwards;}
+    .tool-feature{--tf-rgb:0,212,255;}
+    .tool-feature::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgb(var(--tf-rgb)),transparent);opacity:0.6;}
+    .tool-feature:hover{border-color:rgb(var(--tf-rgb));background:rgba(var(--tf-rgb),0.02);}
     .tool-features .tool-feature:nth-child(1){animation-delay:.02s;}
     .tool-features .tool-feature:nth-child(2){animation-delay:.06s;}
     .tool-features .tool-feature:nth-child(3){animation-delay:.1s;}
     .tool-features .tool-feature:nth-child(4){animation-delay:.14s;}
     .tool-features .tool-feature:nth-child(5){animation-delay:.18s;}
     .tool-features .tool-feature:nth-child(6){animation-delay:.22s;}
-    .tf-header{display:flex;align-items:center;justify-content:space-between;gap:8px;}
-    .tf-name{font-family:var(--sans);font-weight:700;font-size:1rem;letter-spacing:0.14em;color:var(--text);}
-    .tf-tagline{font-family:var(--ui);font-weight:300;font-size:0.8rem;color:var(--accent);letter-spacing:0.03em;}
-    .tf-body{font-family:var(--ui);font-weight:400;font-size:var(--fs-xs);color:var(--muted);line-height:1.8;max-width:600px;}
-    .tf-meta{font-family:var(--mono);font-size:var(--fs-xs);letter-spacing:0.2em;color:var(--muted);border-top:1px solid var(--border);padding-top:10px;margin-top:2px;}
-    .tf-link{font-family:var(--ui);font-weight:600;display:inline-flex;align-items:center;gap:6px;font-size:0.63rem;letter-spacing:0.14em;color:var(--accent);padding:7px 14px;border:1px solid rgba(0,212,255,0.3);border-radius:3px;transition:0.15s;align-self:flex-start;margin-top:2px;}
-    .tf-link:hover{background:rgba(0,212,255,0.08);}
+    .tf-header{display:flex;align-items:center;gap:12px;}
+    .tf-header .card-badge{margin-left:auto;flex-shrink:0;}
+    .tf-icon{flex-shrink:0;width:38px;height:38px;border-radius:7px;display:flex;align-items:center;justify-content:center;background:rgba(var(--tf-rgb),0.14);border:1px solid rgba(var(--tf-rgb),0.4);color:rgb(var(--tf-rgb));font-family:var(--sans);font-weight:700;font-size:0.72rem;letter-spacing:0.02em;}
+    .tf-header-text{flex:1;min-width:0;}
+    .tf-name{font-family:var(--sans);font-weight:700;font-size:1rem;letter-spacing:0.1em;color:var(--text);}
+    .tf-tagline{font-family:var(--ui);font-weight:400;font-size:0.72rem;color:rgb(var(--tf-rgb));letter-spacing:0.02em;margin-top:2px;}
+    .tf-body{font-family:var(--ui);font-weight:400;font-size:var(--fs-sm);color:var(--muted);line-height:1.7;}
+    .tf-meta{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.14em;color:var(--muted);border-top:1px solid var(--border);padding-top:10px;margin-top:2px;}
+    .tf-link{font-family:var(--ui);font-weight:600;display:inline-flex;align-items:center;gap:6px;font-size:0.63rem;letter-spacing:0.14em;color:rgb(var(--tf-rgb));padding:7px 14px;border:1px solid rgba(var(--tf-rgb),0.35);border-radius:3px;transition:0.15s;align-self:flex-start;margin-top:2px;}
+    .tf-link:hover{background:rgba(var(--tf-rgb),0.1);}
 
-    @media(max-width:768px){
-      .hero-chips { margin: 0.75rem 0 1rem; gap: 4px; }
-      .hero-stats { gap: 6px; margin-top: 1rem; }
-      .stat-chip { padding: 7px 10px; min-width: 68px; }
+    @media(max-width:900px){
+      .tool-features{grid-template-columns:1fr;}
     }
 
     @media(max-width:640px){
@@ -605,56 +606,28 @@
       }
     }
 
-    @media(max-width:600px){
-      .stat-chip{min-width:72px;}
-    }
 
     @media(max-width:480px){
       .tf-meta { word-break: break-word; white-space: normal; }
       .tool-feature { padding: 18px 16px 14px; }
-      .hero-chips { gap: 4px; }
-      .hero-chip { font-size: 0.48rem; }
-      .cap-strip { grid-template-columns: repeat(2, 1fr); }
-      .compliance-row { flex-direction: column; }
-      .pillars { grid-template-columns: 1fr; }
+      .hero-stat { padding: 10px 12px; }
     }
 
     /* ── Enterprise additions ───────────────────────────────────────── */
-    .hero-chips{display:flex;flex-wrap:wrap;gap:5px;margin:1.5rem 0 1.75rem;}
-    .hero-chip{font-size:0.52rem;letter-spacing:0.22em;color:var(--muted);border:1px solid var(--border);border-radius:2px;padding:3px 9px;white-space:nowrap;}
-
-    .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:3rem;}
-    .pillar{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:24px 20px;transition:border-color .2s,transform .2s,box-shadow .2s;animation:fadeIn .3s ease backwards;}
-    .pillar:hover{border-color:var(--accent);}
-    .pillars .pillar:nth-child(1){animation-delay:.02s;}
-    .pillars .pillar:nth-child(2){animation-delay:.06s;}
-    .pillars .pillar:nth-child(3){animation-delay:.1s;}
-    .pillar-num{font-family:var(--sans);font-size:0.5rem;letter-spacing:0.28em;color:var(--accent);opacity:0.55;margin-bottom:12px;}
-    .pillar-title{font-family:var(--sans);font-weight:600;font-size:0.68rem;letter-spacing:0.14em;color:var(--text);margin-bottom:8px;}
-    .pillar-desc{font-family:var(--ui);font-size:0.62rem;color:var(--muted);line-height:1.75;}
-
-    .compliance-row{display:flex;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:3rem;flex-wrap:wrap;}
-    .compliance-cell{background:var(--panel);padding:14px 18px;flex:1;min-width:140px;display:flex;flex-direction:column;gap:5px;}
-    .compliance-val{font-family:var(--mono);font-size:0.72rem;color:var(--text);letter-spacing:0.06em;}
-    .compliance-label{font-family:var(--ui);font-size:0.52rem;letter-spacing:0.18em;color:var(--muted);}
+    .arch-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:3rem;}
+    .arch-card{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:20px;display:flex;flex-direction:column;gap:10px;animation:fadeIn .3s ease backwards;}
+    .arch-grid .arch-card:nth-child(1){animation-delay:.02s;}
+    .arch-grid .arch-card:nth-child(2){animation-delay:.06s;}
+    .arch-grid .arch-card:nth-child(3){animation-delay:.1s;}
+    .arch-title{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.12em;color:var(--accent);text-transform:uppercase;}
+    .arch-desc{font-family:var(--ui);font-size:var(--fs-sm);color:var(--muted);line-height:1.65;}
+    .arch-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
+    .arch-tag{font-family:var(--ui);font-weight:600;font-size:0.58rem;letter-spacing:0.06em;color:var(--text);border:1px solid var(--border);border-radius:3px;padding:4px 8px;}
 
     @media(max-width:700px){
-      .pillars{grid-template-columns:1fr;}
-      .compliance-row{flex-direction:column;}
+      .arch-grid{grid-template-columns:1fr;}
     }
 
-    .cap-strip {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1px; background: var(--border); border: 1px solid var(--border);
-      border-radius: 6px; overflow: hidden; margin-bottom: 2.5rem;
-    }
-    .cap-item {
-      background: var(--panel); padding: 14px 18px;
-      display: flex; flex-direction: column; gap: 5px;
-    }
-    .cap-label { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; }
-    .cap-value { font-family: var(--sans); font-weight: 600; font-size: 0.75rem; color: var(--text); letter-spacing: 0.04em; }
-    .cap-value span { color: var(--accent); }
   /* H3AD-SEC MENU SYNC: hamburger-only nav */
 .nav-links{display:none!important;}
 .hamburger{display:flex!important;}
@@ -759,167 +732,125 @@
 
   <div class="page">
     <div class="hero">
-      <span class="hero-tag">THREAT INTELLIGENCE MODULE</span>
-      <h1 class="hero-title">Turn Raw Artifacts Into<br><span>Full Attribution.</span></h1>
-      <p class="hero-sub">Enrich IOCs across 11 threat intelligence sources. Extract 18 artifact types from raw text. Map domain infrastructure to ASN, certificate chains, and co-hosted assets, all without data leaving your browser.</p>
-      <div class="hero-chips">
-        <span class="hero-chip">PARALLEL ENRICHMENT</span>
-        <span class="hero-chip">11 INTEL SOURCES</span>
-        <span class="hero-chip">CLIENT-SIDE PARSING</span>
-        <span class="hero-chip">INFRA ATTRIBUTION</span>
-        <span class="hero-chip">MANAGED API ACCESS</span>
+      <div class="hero-banner"><span class="xv-pill-accent">H3AD</span><span class="xv-pill-text">-X</span></div>
+      <div class="hero-banner-tagline">THREAT INTELLIGENCE PLATFORM</div>
+      <div class="hero-banner-by">by H3AD</div>
+      <div class="hero-intro">
+        <h1 class="hero-title">Turn Raw Artifacts Into<br><span>Full Attribution.</span></h1>
+        <p class="hero-sub">An IP, a hash, a raw header: six tools turn it into a verdict, not a pile of raw API output. Managed keys or your own, everything runs from your browser.</p>
       </div>
       <div class="hero-stats">
-        <div class="stat-chip"><span class="stat-val">6</span><span class="stat-label">TOOLS LIVE</span></div>
-        <div class="stat-chip"><span class="stat-val">18</span><span class="stat-label">ARTIFACT TYPES</span></div>
-        <div class="stat-chip"><span class="stat-val">8</span><span class="stat-label">DNS DATASETS</span></div>
-        <div class="stat-chip"><span class="stat-val">10+</span><span class="stat-label">INTEL SOURCES</span></div>
-      </div>
-    </div>
-
-    <div class="manifesto-strip">
-      <p class="manifesto-text">Threat intel isn't about collecting indicators.<br>It's about making decisions before your attacker does.<br><span style="font-size:0.65rem;color:var(--muted);letter-spacing:0.06em;">Six tools. One pipeline. From any indicator to full actor attribution.</span></p>
-    </div>
-
-    <div class="cap-strip">
-      <div class="cap-item">
-        <span class="cap-label">Enrichment Sources</span>
-        <span class="cap-value"><span>11</span> Sources</span>
-      </div>
-      <div class="cap-item">
-        <span class="cap-label">Artifact Types</span>
-        <span class="cap-value"><span>18</span> Types Parsed</span>
-      </div>
-      <div class="cap-item">
-        <span class="cap-label">DNS Datasets</span>
-        <span class="cap-value"><span>8</span> Sources</span>
-      </div>
-      <div class="cap-item">
-        <span class="cap-label">Privacy</span>
-        <span class="cap-value">Client-<span>Side</span></span>
+        <div class="hero-stat"><span class="hero-stat-num">6</span><span class="hero-stat-label">TOOLS LIVE</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">11</span><span class="hero-stat-label">INTEL SOURCES</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">18</span><span class="hero-stat-label">ARTIFACT TYPES</span></div>
       </div>
     </div>
 
     <h2 class="section-label">TOOLS</h2>
 
     <div class="tool-features">
-      <div class="tool-feature">
+      <div class="tool-feature" style="--tf-rgb:88,166,255;">
         <div class="tf-header">
-          <div class="tf-name">X-VERDIKT</div>
+          <div class="tf-icon">XV</div>
+          <div class="tf-header-text">
+            <div class="tf-name">X-VERDIKT</div>
+            <div class="tf-tagline">Deep IP Enrichment · Managed</div>
+          </div>
           <span class="card-badge badge-live">LIVE</span>
         </div>
-        <div class="tf-tagline">Deep IP Enrichment · 11 Sources</div>
         <div class="tf-body">Deep IP enrichment across 11 threat intelligence sources, scored, flagged, and analyst-ready.</div>
-        <div class="tf-meta" style="margin-top:1rem;">10 SOURCES · PARALLEL QUERIES · MANAGED KEYS · COMPOSITE SCORING</div>
+        <div class="tf-meta">10 SOURCES · PARALLEL QUERIES · MANAGED KEYS · COMPOSITE SCORING</div>
         <a class="tf-link" href="https://h3ad-sec.github.io/X-VERDIKT/" target="_blank" rel="noopener">LAUNCH X-VERDIKT →</a>
       </div>
 
-      <div class="tool-feature">
+      <div class="tool-feature" style="--tf-rgb:139,92,246;">
         <div class="tf-header">
-          <div class="tf-name">IOC-VERDIKT</div>
+          <div class="tf-icon">IV</div>
+          <div class="tf-header-text">
+            <div class="tf-name">IOC-VERDIKT</div>
+            <div class="tf-tagline">Multi-Source Threat Intel · BYOK</div>
+          </div>
           <span class="card-badge badge-live">LIVE</span>
         </div>
-        <div class="tf-tagline">Multi-Source Threat Intel · BYOK</div>
         <div class="tf-body">Query 10 threat intelligence sources in parallel using your own API keys. No managed backend, no shared rate limits, nothing retained on our end.</div>
-        <div class="tf-meta" style="margin-top:1rem;">10 SOURCES · BYOK · PARALLEL QUERIES · YOUR OWN KEYS</div>
+        <div class="tf-meta">10 SOURCES · BYOK · PARALLEL QUERIES · YOUR OWN KEYS</div>
         <a class="tf-link" href="https://h3ad-sec.github.io/IOC-VERDIKT/" target="_blank" rel="noopener">LAUNCH IOC-VERDIKT →</a>
       </div>
 
-      <div class="tool-feature">
+      <div class="tool-feature" style="--tf-rgb:20,184,166;">
         <div class="tf-header">
-          <div class="tf-name">PARSE-X</div>
+          <div class="tf-icon">PX</div>
+          <div class="tf-header-text">
+            <div class="tf-name">PARSE-X</div>
+            <div class="tf-tagline">Artifact Extractor · Client-Side</div>
+          </div>
           <span class="card-badge badge-live">LIVE</span>
         </div>
-        <div class="tf-tagline">Artifact Extractor · 18 Types, Client-Side</div>
         <div class="tf-body">Extract 18 artifact types from any raw text block. Fully client-side, no data leaves the browser.</div>
-        <div class="tf-meta" style="margin-top:1rem;">18 TYPES · CLIENT-SIDE · ZERO DATA SENT · CSV / JSON / MD EXPORT</div>
+        <div class="tf-meta">18 TYPES · CLIENT-SIDE · ZERO DATA SENT · CSV / JSON / MD EXPORT</div>
         <a class="tf-link" href="https://h3ad-sec.github.io/PARSE-X/" target="_blank" rel="noopener">LAUNCH PARSE-X →</a>
       </div>
 
-      <div class="tool-feature">
+      <div class="tool-feature" style="--tf-rgb:99,102,241;">
         <div class="tf-header">
-          <div class="tf-name">DNSCOPE</div>
+          <div class="tf-icon">DS</div>
+          <div class="tf-header-text">
+            <div class="tf-name">DNSCOPE</div>
+            <div class="tf-tagline">Infrastructure Mapper · Managed</div>
+          </div>
           <span class="card-badge badge-live">LIVE</span>
         </div>
-        <div class="tf-tagline">Infrastructure Mapper · 8 DNS Sources</div>
         <div class="tf-body">Map domain and IP infrastructure across ASN, passive DNS, certificates, subdomains, and co-hosted assets.</div>
-        <div class="tf-meta" style="margin-top:1rem;">8 INFRA LAYERS · MANAGED BACKEND · PIVOT-READY · FULL INFRA MAP</div>
+        <div class="tf-meta">8 INFRA LAYERS · MANAGED BACKEND · PIVOT-READY · FULL INFRA MAP</div>
         <a class="tf-link" href="https://h3ad-sec.github.io/DNSCOPE/" target="_blank" rel="noopener">LAUNCH DNSCOPE →</a>
       </div>
 
-      <div class="tool-feature">
+      <div class="tool-feature" style="--tf-rgb:56,189,248;">
         <div class="tf-header">
-          <div class="tf-name">MAILSCOPE</div>
+          <div class="tf-icon">MS</div>
+          <div class="tf-header-text">
+            <div class="tf-name">MAILSCOPE</div>
+            <div class="tf-tagline">Email Header Analyzer · Client-Side</div>
+          </div>
           <span class="card-badge badge-live">LIVE</span>
         </div>
-        <div class="tf-tagline">Email Header Analyzer · SPF · DKIM · DMARC</div>
         <div class="tf-body">Parse raw email headers. SPF, DKIM, and DMARC verdicts with hop chain analysis, sender mismatch detection, and brand impersonation flagging.</div>
-        <div class="tf-meta" style="margin-top:1rem;">CLIENT-SIDE · 10 RISK CHECKS · HOP CHAIN · ORIGIN IP EXTRACTION</div>
+        <div class="tf-meta">CLIENT-SIDE · 10 RISK CHECKS · HOP CHAIN · ORIGIN IP EXTRACTION</div>
         <a class="tf-link" href="https://h3ad-sec.github.io/MAILSCOPE/" target="_blank" rel="noopener">LAUNCH MAILSCOPE →</a>
       </div>
 
-      <div class="tool-feature">
+      <div class="tool-feature" style="--tf-rgb:0,212,255;">
         <div class="tf-header">
-          <div class="tf-name">INFRA-SCOPE</div>
+          <div class="tf-icon">IS</div>
+          <div class="tf-header-text">
+            <div class="tf-name">INFRA-SCOPE</div>
+            <div class="tf-tagline">Infrastructure Mapper · BYOK</div>
+          </div>
           <span class="card-badge badge-live">LIVE</span>
         </div>
-        <div class="tf-tagline">Infrastructure Mapper · BYOK</div>
         <div class="tf-body">Map domain and IP infrastructure across WHOIS, ASN, certificates, subdomains, and more. Most panels need no key at all, deeper panels run on your own.</div>
-        <div class="tf-meta" style="margin-top:1rem;">16 PANELS · BYOK · NO MANAGED BACKEND · FREE + KEYED SOURCES</div>
+        <div class="tf-meta">16 PANELS · BYOK · NO MANAGED BACKEND · FREE + KEYED SOURCES</div>
         <a class="tf-link" href="https://h3ad-sec.github.io/INFRA-SCOPE/" target="_blank" rel="noopener">LAUNCH INFRA-SCOPE →</a>
       </div>
     </div>
 
-    <h2 class="section-label" style="margin-top:3rem;">BUILT FOR THREAT ANALYSTS</h2>
+    <h2 class="section-label" style="margin-top:3rem;">TRUST &amp; ARCHITECTURE</h2>
 
-    <div class="pillars">
-      <div class="pillar">
-        <div class="pillar-num">01</div>
-        <div class="pillar-title">PARALLEL BY DEFAULT</div>
-        <div class="pillar-desc">Every enrichment in H3AD-X queries its sources simultaneously, not one after another. X-VERDIKT returns a verdict in seconds because all ten sources fire at once. You don't wait for the slowest source.</div>
+    <div class="arch-grid">
+      <div class="arch-card">
+        <div class="arch-title">Client-Side Only</div>
+        <div class="arch-desc">No backend at all. Parsing and analysis run entirely in your browser, nothing is uploaded.</div>
+        <div class="arch-tags"><span class="arch-tag">PARSE-X</span><span class="arch-tag">MAILSCOPE</span></div>
       </div>
-      <div class="pillar">
-        <div class="pillar-num">02</div>
-        <div class="pillar-title">CLIENT-SIDE WHERE IT COUNTS</div>
-        <div class="pillar-desc">PARSE-X runs entirely in your browser. Nothing leaves your machine: no upload, no server, no log. Safe for sensitive threat reports, raw log data, and any content you can't risk transmitting to a third-party backend.</div>
+      <div class="arch-card">
+        <div class="arch-title">Managed Backend</div>
+        <div class="arch-desc">H3AD-SEC-issued keys behind a shared rate-limited pool. No signup or key management needed.</div>
+        <div class="arch-tags"><span class="arch-tag">X-VERDIKT</span><span class="arch-tag">DNSCOPE</span></div>
       </div>
-      <div class="pillar">
-        <div class="pillar-num">03</div>
-        <div class="pillar-title">VERDICT, NOT NOISE</div>
-        <div class="pillar-desc">You don't get raw API output. You get composite confidence scores, structured verdicts, and per-source signal, so you can explain your call to a team lead or escalation path in one sentence.</div>
-      </div>
-    </div>
-
-    <h2 class="section-label">TRUST &amp; ARCHITECTURE</h2>
-
-    <div class="compliance-row">
-      <div class="compliance-cell">
-        <div class="compliance-val">CLIENT-SIDE</div>
-        <div class="compliance-label">PARSE-X · NO UPLOAD</div>
-      </div>
-      <div class="compliance-cell">
-        <div class="compliance-val">MANAGED KEYS</div>
-        <div class="compliance-label">X-VERDIKT BACKEND</div>
-      </div>
-      <div class="compliance-cell">
-        <div class="compliance-val">BYOK</div>
-        <div class="compliance-label">IOC-VERDIKT · YOUR KEYS</div>
-      </div>
-      <div class="compliance-cell">
-        <div class="compliance-val">MANAGED KEYS</div>
-        <div class="compliance-label">DNSCOPE BACKEND</div>
-      </div>
-      <div class="compliance-cell">
-        <div class="compliance-val">BYOK</div>
-        <div class="compliance-label">INFRA-SCOPE · YOUR KEYS</div>
-      </div>
-      <div class="compliance-cell">
-        <div class="compliance-val">18 TYPES</div>
-        <div class="compliance-label">IOC ARTIFACT COVERAGE</div>
-      </div>
-      <div class="compliance-cell">
-        <div class="compliance-val">6 LIVE</div>
-        <div class="compliance-label">TOOLS IN PRODUCTION</div>
+      <div class="arch-card">
+        <div class="arch-title">Bring Your Own Key</div>
+        <div class="arch-desc">Your own vendor API keys, stored in your browser only. Never touches an H3AD-SEC server.</div>
+        <div class="arch-tags"><span class="arch-tag">IOC-VERDIKT</span><span class="arch-tag">INFRA-SCOPE</span></div>
       </div>
     </div>
 
